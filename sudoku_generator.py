@@ -16,15 +16,24 @@ class SudokuGenerator:
                       [0, 0, 0, 0, 0, 0, 0, 0, 0],
                       [0, 0, 0, 0, 0, 0, 0, 0, 0]]
         self.solution = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
+        self.original = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
     def get_board(self):
         """
@@ -175,6 +184,7 @@ class SudokuGenerator:
             random_num = random.choice(numbers)
             self.board[x_vals[j]][y_vals[j]] = random_num
             self.solution[x_vals[j]][y_vals[j]] = random_num
+            self.original[x_vals[j]][y_vals[j]] = random_num
             numbers.remove(random_num)
             j += 1
 
@@ -214,10 +224,12 @@ class SudokuGenerator:
             if self.is_valid(row, col, num):
                 self.board[row][col] = num
                 self.solution[row][col] = num
+                self.original[row][col] = num
                 if self.fill_remaining(row, col + 1):
                     return True
                 self.board[row][col] = 0
                 self.solution[row][col] = 0
+                self.original[row][col] = 0
         return False
 
     def fill_values(self):
@@ -262,6 +274,7 @@ class SudokuGenerator:
             col_num = number % 9
             coordinates = self.get_box(row_num, col_num)
             self.board[row_num][col_num] = 0
+            self.original[row_num][col_num] = 0
             zero_to_eighty.remove(number)
 
 
